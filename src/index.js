@@ -3,6 +3,7 @@ const httpServer = require('http-server');
 const fse = require('fs-extra');
 const path = require('path');
 const portfinder = require('portfinder');
+require("dotenv").config();
 
 class SPAPrerenderer {
   constructor({ inputDir, outputDir, routes }) {
@@ -31,8 +32,9 @@ class SPAPrerenderer {
           "--single-process",
           "--no-zygote",
         ],
-        executablePath: "/usr/bin/google-chrome-stable",
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
       });
+      console.log("Executable path: " + browser.executablePath);
       const page = await browser.newPage();
 
       for (const route of this.routes) {
