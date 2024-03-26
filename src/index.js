@@ -24,6 +24,7 @@ class SPAPrerenderer {
       console.log(`HTTP Server running on http://localhost:${port}`);
 
       const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/google-chrome',
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       const page = await browser.newPage();
