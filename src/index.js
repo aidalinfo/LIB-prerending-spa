@@ -34,7 +34,7 @@ class SPAPrerenderer {
         ],
         executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
       });
-      console.log("Executable path: " + browser.executablePath);
+      // console.log("Executable path: " + browser.executablePath);
       const page = await browser.newPage();
 
       for (const route of this.routes) {
@@ -42,8 +42,9 @@ class SPAPrerenderer {
         await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds
 
         const content = await page.content(); // Capture the HTML content of the page
-
-        const outputPath = path.join(this.outputDir, route, 'index.html');
+        
+        const fileName = route === '/' ? 'index.html' : `${route.slice(1)}.html`;
+        const outputPath = path.join(this.outputDir, fileName);
         await fse.ensureDir(path.dirname(outputPath)); // Ensure directory exists
         await fse.writeFile(outputPath, content); // Write the HTML content to file
       }
