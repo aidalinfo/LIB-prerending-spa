@@ -31,7 +31,7 @@ class SPAPrerenderer {
           "--single-process",
           "--no-zygote",
         ],
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
+        executablePath: "/usr/bin/google-chrome-stable",
       });
       const page = await browser.newPage();
 
