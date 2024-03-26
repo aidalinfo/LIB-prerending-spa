@@ -1,0 +1,33 @@
+{
+  "name": "lib-prerending-spa",
+  "version": "0.0.1",
+  "description": "Prerending SPA, generate HTML with meta for SEO",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidalinfo/lib-prerending-spa.git"
+  },
+  "keywords": [
+    "SEO",
+    "SPA",
+    "SPA",
+    "Prerending",
+    "Prerender"
+  ],
+  "author": "Aidalinfo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aidalinfo/lib-prerending-spa/issues"
+  },
+  "homepage": "https://github.com/aidalinfo/lib-prerending-spa#readme",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "http-server": "^14.1.1",
+    "path": "^0.12.7",
+    "portfinder": "^1.0.32",
+    "puppeteer": "^22.6.1"
+  }
+}
