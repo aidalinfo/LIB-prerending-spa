@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const httpServer = require('http-server');
+const express = require('express');
 const fse = require('fs-extra');
 const path = require('path');
 const portfinder = require('portfinder');
@@ -13,16 +13,24 @@ class SPAPrerenderer {
   }
 
   async prerender() {
-    const server = httpServer.createServer({ root: this.inputDir });
+    const app = express();
+    const staticPath = path.join(this.inputDir);
 
-    // Configue portfinder
+    // Servir les fichiers statiques
+    app.use(express.static(staticPath));
+
+    // Toutes les requêtes après / sont redirigés vers index.html
+    app.get('*', (req, res) => {
+      const indexPath = path.join(staticPath, 'index.html');
+      res.sendFile(indexPath); // Utilise le chemin absolu
+    });
+
+    // Configuer portfinder pour trouver un port libre
     portfinder.basePort = 8000;
-
-    // Find port for starting the server
     const port = await portfinder.getPortPromise();
 
-    server.listen(port, 'localhost', async () => {
-      console.log(`HTTP Server running on http://localhost:${port}`);
+    app.listen(port, 'localhost', async () => {
+      console.log(`Express Server running on http://localhost:${port}`);
 
       const browser = await puppeteer.launch({
         headless: true,
@@ -58,8 +66,7 @@ class SPAPrerenderer {
       await fse.copy(sourceAssetsPath, destAssetsPath);
       console.log('Assets copied.');
 
-      server.close(); // Close the HTTP server at the end
-      console.log('HTTP Server closed.');
+      process.exit(0); // exit the HTTP server at the end
     });
   }
 }

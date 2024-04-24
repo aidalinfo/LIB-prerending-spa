@@ -25,6 +25,7 @@
   "homepage": "https://github.com/aidalinfo/lib-prerending-spa#readme",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "fs-extra": "^11.2.0",
     "http-server": "^14.1.1",
     "path": "^0.12.7",
